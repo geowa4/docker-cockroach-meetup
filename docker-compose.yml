@@ -1,0 +1,47 @@
+version: '3'
+
+networks:
+  roachnet:
+    driver: bridge
+
+services:
+  roach1:
+    image: cockroachdb/cockroach:beta-20170406
+    hostname: roach1
+    ports:
+      - '26257:26257'
+      - '8080:8080'
+    volumes:
+      - roachvolume01:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --insecure
+  roach2:
+    image: cockroachdb/cockroach:beta-20170406
+    hostname: roach2
+    volumes:
+      - roachvolume02:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --insecure --join=roach1
+  roach3:
+    image: cockroachdb/cockroach:beta-20170406
+    hostname: roach3
+    volumes:
+      - roachvolume03:/cockroach/cockroach-data
+    networks:
+      - roachnet
+    command: start --insecure --join=roach1
+  haproxy:
+    build: haproxy
+    hostname: haproxy
+    ports:
+      - '5432:5432'
+      - '6080:6080'
+    networks:
+      - roachnet
+
+volumes:
+  roachvolume01: {}
+  roachvolume02: {}
+  roachvolume03: {}
