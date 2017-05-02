@@ -14,9 +14,9 @@ For your local development, you'll need a working Ruby and Docker installation.
 ```
 bundle install --binstubs --with development
 docker-compose up --build
-docker-compose exec roach1 ./cockroach user set skeletonkey
-docker-compose exec roach1 ./cockroach sql -e 'CREATE DATABASE skeletonkey'
-docker-compose exec roach1 ./cockroach sql -e 'GRANT ALL ON DATABASE skeletonkey TO skeletonkey'
+docker-compose exec roach1 ./cockroach user set skeletonkey --insecure
+docker-compose exec roach1 ./cockroach sql -e 'CREATE DATABASE skeletonkey' --insecure
+docker-compose exec roach1 ./cockroach sql -e 'GRANT ALL ON DATABASE skeletonkey TO skeletonkey' --insecure
 bin/rake schema:users users:seed
 bin/guard start
 ```
