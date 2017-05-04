@@ -6,7 +6,7 @@ networks:
 
 services:
   roach1:
-    image: cockroachdb/cockroach:v1.0-rc.1
+    image: cockroachdb/cockroach:v1.0
     hostname: roach1
     ports:
       - '26257:26257'
@@ -17,7 +17,7 @@ services:
       - roachnet
     command: start --insecure
   roach2:
-    image: cockroachdb/cockroach:v1.0-rc.1
+    image: cockroachdb/cockroach:v1.0
     hostname: roach2
     volumes:
       - roachvolume02:/cockroach/cockroach-data
@@ -25,7 +25,7 @@ services:
       - roachnet
     command: start --insecure --join=roach1
   roach3:
-    image: cockroachdb/cockroach:v1.0-rc.1
+    image: cockroachdb/cockroach:v1.0
     hostname: roach3
     volumes:
       - roachvolume03:/cockroach/cockroach-data
