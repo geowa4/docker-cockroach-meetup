@@ -2,14 +2,11 @@
 # frozen_string_literal: true
 require 'json'
 require 'sinatra'
+require 'sinatra/activerecord'
 require './lib/features/list_users'
 
 configure do
   set :show_exceptions, false
-  set :database,
-      adapter: 'postgresql', encoding: 'unicode',
-      database: 'your_database_name', pool: 2,
-      username: 'your_username', password: 'your_password'
 end
 
 get '/' do

@@ -2,7 +2,7 @@
 
 task :test
 
-task default: :test
+task default: ['users:seed', :test]
 
 begin
   require 'rubocop/rake_task'
@@ -19,3 +19,6 @@ begin
 rescue LoadError
   task test: []
 end
+
+require 'sinatra/activerecord'
+require 'sinatra/activerecord/rake'
